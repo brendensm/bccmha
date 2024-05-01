@@ -1,0 +1,14 @@
+Package: bccmha
+Type: Package
+Title: Nice Functions and Palettes for Clean Data Visualizations 
+Version: 0.1.0
+Author: Brenden Smith
+Maintainer: Brenden Smith <brendensmithmi@gmail.com>
+Description: This package uses the BCCMHA SATF color branding and provides
+    helpful functions to quickly plot data in ggplot2.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
+Depends: 
+    R (>= 2.10)
