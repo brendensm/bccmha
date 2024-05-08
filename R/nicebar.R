@@ -15,13 +15,15 @@
 #'@import ggplot2
 
 
-nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F, fill = NA){
+nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F, fill = NA, slice = T, slice_n = 10){
+
 
   if(isFALSE(group)){
 
     df |>
       dplyr::count({{var}}) |>
       dplyr::mutate(pct = round((n/sum(n)), 2)*100) |>
+      dplyr::slice_max(n = ifelse(isTRUE(slice), slice_n, nrow(df)), order_by = pct) |>
       ggplot2::ggplot(ggplot2::aes(y = reorder({{var}}, pct), x = pct)) +
       ggplot2::scale_x_continuous(labels = scales::label_percent(scale = 1)) +
       ggplot2::geom_col(fill = ifelse(is.na(fill), "#ff8d13", fill)) +
@@ -62,11 +64,15 @@ satf_green = "#91b632"
 satf_orange = "#ff8d13"
 satf_red = "#ef4c55"
 #
-# penguins |>
-#   dplyr::count(species, island) |>
+# palmerpenguins::penguins |>
+#   dplyr::count(species, island) #|>
 #   ggplot(aes(y = reorder(species, n), x = n, group = island)) +
 #   geom_col(position = "dodge", aes(fill = island)) +
 #   geom_label(aes(label = n), position = position_dodge(width = 1), hjust = 1)
+#
+
+
+
 #
 #
 # penguins |>
