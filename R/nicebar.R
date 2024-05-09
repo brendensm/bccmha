@@ -17,7 +17,7 @@
 
 nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F,
                     fill = NA, slice = T, slice_n = 10, nudge_lab = -3, wrap = 26,
-                    xrange = NULL){
+                    xrange = NULL, sort_freq = T){
 
 
   if(isFALSE(group)){
@@ -26,7 +26,7 @@ nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, gro
       dplyr::count({{var}}) |>
       dplyr::mutate(pct = round((n/sum(n)), 2)*100) |>
       dplyr::slice_max(n = ifelse(isTRUE(slice), slice_n, nrow(df)), order_by = pct) |>
-      ggplot2::ggplot(ggplot2::aes(y = reorder({{var}}, pct), x = pct)) +
+      ggplot2::ggplot(ggplot2::aes(y = else_if(isTRUE(sort_freq), reorder({{var}}, pct), {{var}}), x = pct)) +
       ggplot2::scale_x_continuous(labels = scales::label_percent(scale = 1),
                                   limits = xrange) +
       ggplot2::geom_col(fill = ifelse(is.na(fill), "#ff8d13", fill)) +
