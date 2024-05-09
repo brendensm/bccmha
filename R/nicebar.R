@@ -16,7 +16,8 @@
 
 
 nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F,
-                    fill = NA, slice = T, slice_n = 10, nudge_lab = -3){
+                    fill = NA, slice = T, slice_n = 10, nudge_lab = -3, wrap = 26,
+                    xrange = NULL){
 
 
   if(isFALSE(group)){
@@ -26,7 +27,8 @@ nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, gro
       dplyr::mutate(pct = round((n/sum(n)), 2)*100) |>
       dplyr::slice_max(n = ifelse(isTRUE(slice), slice_n, nrow(df)), order_by = pct) |>
       ggplot2::ggplot(ggplot2::aes(y = reorder({{var}}, pct), x = pct)) +
-      ggplot2::scale_x_continuous(labels = scales::label_percent(scale = 1)) +
+      ggplot2::scale_x_continuous(labels = scales::label_percent(scale = 1),
+                                  limits = xrange) +
       ggplot2::geom_col(fill = ifelse(is.na(fill), "#ff8d13", fill)) +
 
       ggplot2::geom_label(ggplot2::aes(label = paste(paste0(pct, "%"), paste0("(", n, ")"))), nudge_x = nudge_lab) +
@@ -34,7 +36,8 @@ nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, gro
       ggplot2::labs(x = "Percentage", y = ifelse(is.null(x_label), "", x_label),
            title = ifelse(is.null(title), "", title)) +
       ggplot2::theme(plot.title.position = "plot",
-            plot.title = ggplot2::element_text(size = 18, face = "bold"))
+            plot.title = ggplot2::element_text(size = 18, face = "bold")) +
+      scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = wrap))
 
 
   }else{
