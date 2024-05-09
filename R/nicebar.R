@@ -15,7 +15,8 @@
 #'@import ggplot2
 
 
-nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F, fill = NA, slice = T, slice_n = 10){
+nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, group = F,
+                    fill = NA, slice = T, slice_n = 10, nudge_lab = -3){
 
 
   if(isFALSE(group)){
@@ -28,7 +29,7 @@ nicebar <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, gro
       ggplot2::scale_x_continuous(labels = scales::label_percent(scale = 1)) +
       ggplot2::geom_col(fill = ifelse(is.na(fill), "#ff8d13", fill)) +
 
-      ggplot2::geom_label(ggplot2::aes(label = paste(paste0(pct, "%"), paste0("(", n, ")"))), nudge_x = -4) +
+      ggplot2::geom_label(ggplot2::aes(label = paste(paste0(pct, "%"), paste0("(", n, ")"))), nudge_x = nudge_lab) +
       ggplot2::theme_minimal(base_size = 14) +
       ggplot2::labs(x = "Percentage", y = ifelse(is.null(x_label), "", x_label),
            title = ifelse(is.null(title), "", title)) +
