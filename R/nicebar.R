@@ -54,7 +54,7 @@ bcb <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, y_label
       ggplot2::labs(x = ifelse(is.null(x_label), "", x_label), y = ifelse(is.null(y_label), "", y_label),
                     title = ifelse(is.null(title), "", title)) +
       ggplot2::theme(plot.title.position = "plot",
-                     plot.title = ggplot2::element_text(size = 18, face = "bold")) +
+                     plot.title = ggplot2::element_text(size = 18)) +
       ggplot2::scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = wrap))
 
   } else {
@@ -77,7 +77,7 @@ bcb <- function(df, var, group_var = NULL, title = NULL, x_label = NULL, y_label
       ggplot2::labs(x = ifelse(is.null(x_label), "", x_label), y = ifelse(is.null(y_label), "", y_label),
                     title = ifelse(is.null(title), "", title)) +
       ggplot2::theme(plot.title.position = "plot",
-                     plot.title = ggplot2::element_text(size = 18, face = "bold"))
+                     plot.title = ggplot2::element_text(size = 18))
   }
 }
 
@@ -107,7 +107,7 @@ bchist <- function(df, var, group_var = NULL, group = FALSE, binwidth = NULL, ti
 
         title = ifelse(is.null(title), "", title)) +
       ggplot2::theme(plot.title.position = "plot",
-                     plot.title = ggplot2::element_text(size = 18, face = "bold"))
+                     plot.title = ggplot2::element_text(size = 18))
 
   }else{
 
@@ -120,7 +120,7 @@ bchist <- function(df, var, group_var = NULL, group = FALSE, binwidth = NULL, ti
 
         title = ifelse(is.null(title), "", title)) +
       ggplot2::theme(plot.title.position = "plot",
-                     plot.title = ggplot2::element_text(size = 18, face = "bold"))
+                     plot.title = ggplot2::element_text(size = 18))
 
 
   }
